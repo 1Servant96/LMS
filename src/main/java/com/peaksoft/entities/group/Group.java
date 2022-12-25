@@ -8,6 +8,8 @@ import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,14 +20,19 @@ import static javax.persistence.CascadeType.*;
 @Getter
 @Setter
 @NoArgsConstructor
+@Table (name = "groups")
 public class Group {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "group_seq")
+    @SequenceGenerator(name = "group_seq", sequenceName = "group_seq", allocationSize = 1)
     private Long id;
+    @NotEmpty(message = "the group name couldn't be empty")
+    @Size(min = 2, message = "the group name couldn't be less than 2 letters")
     private String groupName;
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate dateOfStart;
     private String image;
+
 
     @ManyToMany(cascade = {DETACH,MERGE,REFRESH,REMOVE},fetch = FetchType.LAZY, mappedBy = "groups")
     private List<Course> courses;

@@ -7,7 +7,7 @@ import java.util.List;
 @Service
 @Transactional
 public class LessonServiceImpl implements LessonService {
-    private LessonRepositoryImpl lessonRepository;
+    private LessonRepository lessonRepository;
 
     @Override
     public List<Lesson> getAllLessons(Long courseId) {

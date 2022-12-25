@@ -1,17 +1,21 @@
 package com.peaksoft.entities.course;
 
-import com.peaksoft.entities.company.CompanyServiceImpl;
+import com.peaksoft.entities.company.CompanyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
+
 @Controller
 @RequestMapping("/courses")
 public class CourseController {
-    private final CompanyServiceImpl companyService;
-    private final CourseServiceImpl courseService;
+    private final CompanyService companyService;
+    private final CourseService courseService;
       @Autowired
-    public CourseController(CompanyServiceImpl companyService, CourseServiceImpl courseService) {
+    public CourseController(CompanyService companyService, CourseService courseService) {
           this.companyService = companyService;
           this.courseService = courseService;
     }
@@ -34,9 +38,9 @@ public class CourseController {
     }
 
     @PostMapping("/{id}")
-    public String create(@ModelAttribute("course") /*@Valid*/ Course course, @PathVariable("id") Long id /*BindingResult bindingResult*/) {
-//        if (bindingResult.hasErrors()){
-//            return "/allCompanies/new";}
+    public String create(@ModelAttribute("course") @Valid Course course, BindingResult bindingResult, @PathVariable("id") Long id) {
+        if (bindingResult.hasErrors()){
+            return "/course/newCourse";}
         courseService.saveCourse(id, course);
         return "redirect:/courses";
     }
@@ -48,9 +52,9 @@ public class CourseController {
     }
 
     @PatchMapping("/{id}")
-    public String updateCourse(@ModelAttribute("course") /*@Valid*/ Course course,/* BindingResult bindingResult,*/ @PathVariable("id") Long id) {
-//        if(bindingResult.hasErrors()){
-//            return "/allCompanies/edit";}
+    public String updateCourse(@ModelAttribute("course") @Valid Course course, BindingResult bindingResult, @PathVariable("id") Long id) {
+        if(bindingResult.hasErrors()){
+            return "/course/editCourse";}
         courseService.updateCourse(id, course);
         return "redirect:/courses/course/"+id;
 

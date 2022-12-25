@@ -2,21 +2,19 @@
 <!--<html lang="en">-->
 <!--<head>-->
 <!--    <meta charset="UTF-8" xmlns:th="http://www.thymeleaf.org">-->
-<!--    <title>Title</title>-->
+<!--    <title>All companies</title>-->
 <!--</head>-->
 <!--<body>-->
 <!--<div th:each="company: ${companies}">-->
-<!--    <a th:href="@{companies/{id}(id=${.getId()})}"-->
+<!--    <a th:href="@{/companies/{id}(id=${company.get})}"-->
 <!--       th:text="${person.getName() + ', ' + person.getAge()}">user</a>-->
 <!--</div>-->
 <!--<br/>-->
 <!--<hr/>-->
 
-<!--<a href="/people/new">Create new person</a>-->
+<!--<a href="/company/newCompany">Create new company</a>-->
 <!--</body>-->
 <!--</html>-->
-
-
 
 <!doctype html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
@@ -52,7 +50,7 @@
         <th scope="colgroup">Id</th>
         <th scope="col">Company name</th>
         <th scope="col">Located country</th>
-        <th scope="col">Studentter sany</th>
+        <th scope="col">The amount of students</th>
         <th scope="col">Courses</th>
         <th scope="col">Update</th>
         <th scope="col">Delete</th>
@@ -84,7 +82,9 @@
     </tbody>
 </table>
 <br><br><br><br>
-<input style=" display: block; margin:auto; font-size:30px;" type="button" value="Add company"
-       onclick="window.location.href = 'addCompany'">
+<!--<input style=" display: block; margin:auto; font-size:30px;" type="button" value="Add company"-->
+<!--       onclick="window.location.href = 'companies/newCompany'">-->
+<a href="/companies/newCompany" style="display: block; margin:auto; font-size: 50px;" type="button" value  = "Add company">Create new company</a>
+
 </body>
 </html>

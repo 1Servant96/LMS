@@ -7,7 +7,7 @@ import java.util.List;
 @Service
 @Transactional
 public class InstructorServiceImpl implements InstructorService {
-    private InstructorRepositoryImpl instructorRepository;
+    private InstructorRepository instructorRepository;
 
     @Override
     public List<Instructor> getInstructorList() {

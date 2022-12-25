@@ -9,10 +9,10 @@ import java.util.List;
 @Service
 @Transactional
 public class CompanyServiceImpl implements CompanyService{
-    private final CompanyRepositoryImpl companyRepository;
+    private final CompanyRepository companyRepository;
 
     @Autowired
-    public CompanyServiceImpl(CompanyRepositoryImpl companyRepository) {
+    public CompanyServiceImpl(CompanyRepository companyRepository) {
         this.companyRepository = companyRepository;
     }
     @Override

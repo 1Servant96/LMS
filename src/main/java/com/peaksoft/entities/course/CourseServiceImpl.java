@@ -1,6 +1,5 @@
 package com.peaksoft.entities.course;
 
-import com.peaksoft.entities.company.Company;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,10 +9,10 @@ import java.util.List;
 @Service
 @Transactional
 public class CourseServiceImpl implements CourseService {
-    private final CourseRepositoryImpl courseRepository;
+    private final CourseRepository courseRepository;
 
     @Autowired
-    public CourseServiceImpl(CourseRepositoryImpl courseRepository) {
+    public CourseServiceImpl(CourseRepository courseRepository) {
         this.courseRepository = courseRepository;
     }
 
