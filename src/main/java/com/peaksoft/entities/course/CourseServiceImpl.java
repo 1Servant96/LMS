@@ -27,7 +27,6 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     public void saveCourse(Long id, Course course) {
-
         courseRepository.saveCourse(id, course);
     }
 

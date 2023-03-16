@@ -1,13 +1,21 @@
 package com.peaksoft.entities.instructor;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.io.IOException;
 import java.util.List;
 @Service
 @Transactional
 public class InstructorServiceImpl implements InstructorService {
-    private InstructorRepository instructorRepository;
+    private final InstructorRepository instructorRepository;
+
+    @Autowired
+    public InstructorServiceImpl(InstructorRepository instructorRepository) {
+        this.instructorRepository = instructorRepository;
+    }
+
 
     @Override
     public List<Instructor> getInstructorList() {
@@ -32,6 +40,11 @@ public class InstructorServiceImpl implements InstructorService {
     @Override
     public void updateInstructor(Instructor instructor, Long id) {
         instructorRepository.updateInstructor(instructor, id);
+    }
+
+    @Override
+    public void assignInstructor(Long courseId, Long instructorId) throws IOException {
+        instructorRepository.assignInstructor(courseId, instructorId);
     }
 
     @Override

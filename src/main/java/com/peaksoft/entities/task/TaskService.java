@@ -1,10 +1,7 @@
 package com.peaksoft.entities.task;
-
-import org.springframework.stereotype.Service;
-
 import java.util.List;
 public interface TaskService {
-    List<Task> getAlTasks(Long lessonId);
+    List<Task> getAllTasks(Long lessonId);
 
     void addTask(Long id, Task task);
 
@@ -12,6 +9,6 @@ public interface TaskService {
 
     void updateTask(Task task, Long id);
 
-    void deleteTask(Long id);
+    void deleteTaskById(Long id);
 
 }

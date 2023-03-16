@@ -1,5 +1,6 @@
 package com.peaksoft.entities.group;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -8,11 +9,21 @@ import java.util.List;
 @Service
 @Transactional
 public class GroupServiceImpl implements GroupService {
-//    @Autowired
-    private GroupRepository groupRepository;
-    public List<Group> getAllGroups(){
-        return groupRepository.getAllGroups();
+
+    private final GroupRepository groupRepository;
+    @Autowired
+    public GroupServiceImpl(GroupRepository groupRepository) {
+        this.groupRepository = groupRepository;
     }
+    public List<Group> getFullGroups(){
+        return groupRepository.getFullGroups();
+    }
+
+    @Override
+    public List<Group> getAllGroups(Long courseId) {
+        return groupRepository.getAllGroups(courseId);
+    }
+
     public void saveGroup(Group group, Long idOfCourse){
         groupRepository.saveGroup(group, idOfCourse);
     }
@@ -25,5 +36,10 @@ public class GroupServiceImpl implements GroupService {
     @Override
     public void updateGroup(Group group, Long id) {
         groupRepository.updateGroup(group, id);
+    }
+
+    @Override
+    public void assignGroup(Long idCourse, Long idGroup) throws Exception {
+        groupRepository.assignGroup(idCourse, idGroup);
     }
 }

@@ -1,64 +1,72 @@
 package com.peaksoft.entities.student;
 
+import com.peaksoft.entities.group.GroupService;
+import com.peaksoft.enums.StudyFormat;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+
 @Controller
-@RequestMapping("/students")
 public class StudentController {
-    @Autowired
+
     private final StudentService studentService;
+    private final GroupService groupService;
 
-    public StudentController(StudentService studentService) {
+    @Autowired
+    public StudentController(StudentService studentService, GroupService groupService) {
         this.studentService = studentService;
+        this.groupService = groupService;
     }
 
-
-    @GetMapping("/{id}")
-    public String index(Model model, @PathVariable("id") Long id) {
-        model.addAttribute("people", studentService.getAllStudents(id));
-        return "student/students";
+    @GetMapping("/students/{id}")
+    public String getAllStudents(@PathVariable Long id, Model model) {
+        model.addAttribute("students", studentService.getAllStudents(id));
+        model.addAttribute("groupId", id);
+        return "/students/students";
     }
 
-    @GetMapping("student/{id}")
-    public String show(@PathVariable("id") Long id, Model model) {
-        model.addAttribute("person", studentService.getStudentById(id));
-        return "student/show";
+    @GetMapping("/{id}/newStudent")
+    public String addStudent(@PathVariable Long id, Model model) {
+        model.addAttribute("student", new Student());
+        model.addAttribute("studyFormatOnline", StudyFormat.ONLINE);
+        model.addAttribute("studyFormatOffline", StudyFormat.OFFLINE);
+        model.addAttribute("groupId", id);
+        return "/students/newStudent";
     }
 
-    @GetMapping("/new")
-    public String newStudent(@ModelAttribute("student") Student student) {
-//        model.addAttribute("person", new Person());
-        return "student/newStudent";
-    }
-
-    @PostMapping
-    public String create(@ModelAttribute("student") /*@Valid*/ Student student, Long id/* BindingResult bindingResult*/) {
-//        if (bindingResult.hasErrors()){
-//            return "/people/new";}
+    @PostMapping("/{id}/saveStudent")
+    public String saveStudent(@ModelAttribute("student") Student student,
+                              @PathVariable Long id) {
         studentService.saveStudent(student, id);
-        return "redirect:/students";
+//        studentService.addStudentToGroup(student, id);
+        return "redirect:/students/" + id;
     }
 
-    @GetMapping("/{id}/edit")
-    public String edit(Model model, @PathVariable("id") Long id) {
-        model.addAttribute("student", studentService.getStudentById(id));
-        return "student/editStudent";
+    @GetMapping("/editStudent/{id}")
+    public String updateStudent(@PathVariable("id") Long id, Model model) {
+        Student student = studentService.getStudentById(id);
+        model.addAttribute("student", student);
+        model.addAttribute("groupId", student.getGroup().getId());
+        model.addAttribute("studyFormatOnline", StudyFormat.ONLINE);
+        model.addAttribute("studyFormatOffline", StudyFormat.OFFLINE);
+        return "/students/editStudent";
     }
 
-    @PatchMapping("/{id}")
-    public String update(@ModelAttribute("student") /*@Valid*/ Student student
-            /*BindingResult bindingResult*/, @PathVariable("id") Long id) {
-//        if(bindingResult.hasErrors()){
-//            return "/student/editStudent";}
+    @PostMapping("/{groupId}/{id}/saveUpdateStudent")
+    public String saveUpdateStudent(@PathVariable("groupId") Long groupId,
+                                    @PathVariable("id") Long id,
+                                    @ModelAttribute("student") Student student)  {
         studentService.updateStudent(student, id);
-        return "redirect:/people";
+        return "redirect:/students/" + groupId;
     }
 
-    @DeleteMapping("/{id}")
-    public String delete(@PathVariable("id") Long id) {
+    @GetMapping("/{groupId}/{id}/deleteStudent")
+    public String deleteStudent(@PathVariable("id") Long id, @PathVariable("groupId") Long groupId) {
         studentService.deleteStudentById(id);
-        return "redirect:/students";
+        return "redirect:/students/" + groupId;
     }
 }

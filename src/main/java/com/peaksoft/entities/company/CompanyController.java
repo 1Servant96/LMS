@@ -9,8 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 @Controller
-@RequestMapping("/companies")
-public class CompanyController {
+public class  CompanyController {
     private final CompanyService companyService;
 
     @Autowired
@@ -18,50 +17,45 @@ public class CompanyController {
         this.companyService = companyService;
     }
 
-    @GetMapping()
+    @GetMapping("/getAllCompanies")
     public String getCompanies(Model model) {
         model.addAttribute("companies", companyService.getCompanies());
-        return "company/companies";
+        return "/companies/companies";
     }
-
-    @GetMapping("/{id}")
-    public String show(@PathVariable("id") Long id, Model model) {
-        model.addAttribute("company", companyService.getCompanyById(id));
-        return "company/show";
-    }
-
     @GetMapping("/newCompany")
-    public String newCompany(@ModelAttribute("company") Company company, Model model) {
+    public String newCompany(Model model) {
         model.addAttribute("company", new Company());
-        return "company/newCompany";
+        return "/companies/newCompany";
     }
 
-    @PostMapping
+    @PostMapping("/saveCompany")
     public String create(@ModelAttribute("company") @Valid Company company, BindingResult bindingResult) {
         if (bindingResult.hasErrors()){
-            return "/company/newCompany";}
+            return "/companies/newCompany";
+        }
         companyService.saveCompany(company);
-        return "redirect:/companies";
+        return "redirect:/getAllCompanies";
     }
 
-    @GetMapping("/{id}/edit")
-    public String edit(Model model, @PathVariable("id") Long id) {
-        model.addAttribute("company", companyService.getCompanyById(id));
-        return "company/editCompany";
+    @GetMapping("editCompany")
+    public String edit(@RequestParam("companyId") Long id, Model model) {
+        Company company = companyService.getCompanyById(id);
+        model.addAttribute("company", company);
+        return "/companies/editCompany";
     }
 
-    @PatchMapping("/{id}/update")
-    public String updateCompany(@ModelAttribute("company") @Valid Company company, BindingResult bindingResult, @PathVariable("id") Long id) {
+    @PostMapping("/editCompany/{idCompany}")
+    public String updateCompany(@PathVariable("idCompany") Long idCompany, @ModelAttribute("company") @Valid Company company, BindingResult bindingResult) {
         if(bindingResult.hasErrors()){
-            return "/company/editCompany";}
-        companyService.updateCompany(company, id);
-        return "redirect:/companies";
-
+            return "/companies/editCompany";
+        }
+        companyService.updateCompany(company, idCompany);
+        return "redirect:/getAllCompanies";
     }
 
-    @DeleteMapping("/{id}/delete")
-    public String delete(@PathVariable("id") Long id) {
+    @RequestMapping("/deleteCompany")
+    public String delete(@RequestParam ("companyId") Long id) {
         companyService.deleteCompanyById(id);
-        return "redirect:/companies";
+        return "redirect:/getAllCompanies";
     }
 }

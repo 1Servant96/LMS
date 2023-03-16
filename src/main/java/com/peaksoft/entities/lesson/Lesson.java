@@ -13,10 +13,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import static javax.persistence.CascadeType.*;
+import static javax.persistence.CascadeType.REFRESH;
+
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
+//@Table (name = "lessons")
+
 public class Lesson {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "lesson_seq")
@@ -25,9 +30,9 @@ public class Lesson {
     @NotEmpty(message = "the lesson name couldn't be empty")
     @Size(min = 2, message = "the lesson name shouldn't be less than 2")
     private String lessonName;
-    @OneToOne
+    @ManyToOne(cascade = {MERGE,DETACH,PERSIST,REFRESH},fetch = FetchType.EAGER)
     private Course course;
-    @OneToMany
+    @OneToMany(cascade = {ALL},fetch = FetchType.LAZY,mappedBy = "lesson")
     private List<Task> tasks = new ArrayList<>();
 
 

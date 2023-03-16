@@ -29,7 +29,7 @@ public class CompanyServiceImpl implements CompanyService{
 
     @Override
     public void updateCompany(Company company, Long id) {
-    companyRepository.updateCompany(company,id);
+    companyRepository.updateCompany(company, id);
     }
 
     public void deleteCompanyById(Long id){

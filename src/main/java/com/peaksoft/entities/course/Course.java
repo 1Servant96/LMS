@@ -15,12 +15,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static javax.persistence.CascadeType.*;
+import static javax.persistence.FetchType.EAGER;
+import static javax.persistence.FetchType.LAZY;
 
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
-
+@Table (name = "courses")
 public class Course {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "course_seq")
@@ -31,22 +33,39 @@ public class Course {
     @Column
     private String courseName;
     @Column
-    @NotEmpty(message = "course duration should be entered")
-    @Size(min = 1, max = 9, message = "the course duration should more then 1 month and less than 9 month")
+//    @NotEmpty(message = "course duration should be entered")
+//    @Size(min = 1, max = 9, message = "the course duration should more then 1 month and less than 9 month")
     private int duration;
     @NotEmpty(message = "Course description cant be null")
     @Column
     private String description;
-    @ManyToOne(cascade = {DETACH, MERGE, REFRESH}, fetch = FetchType.LAZY)
+    @ManyToOne(cascade = {DETACH, MERGE, REFRESH,PERSIST}, fetch = EAGER)
     private Company company;
 
-    @ManyToMany(cascade = {DETACH, MERGE, REFRESH, PERSIST, REMOVE}, fetch = FetchType.EAGER)
-    private List<Group> groups = new ArrayList<>();
+    @ManyToMany(cascade = {DETACH, MERGE, REFRESH, PERSIST}, fetch = LAZY)
+    private List<Group> groups;
 
-    @OneToMany(cascade = {ALL}, fetch = FetchType.LAZY, mappedBy = "course")
-    private List<Instructor> instructors = new ArrayList<>();
+    @OneToMany(cascade = {ALL}, fetch = LAZY, mappedBy = "course")
+    private List<Instructor> instructors;
 
-    @OneToMany
-    private List<Lesson> lessons = new ArrayList<>();
-
+    @OneToMany(cascade = {ALL}, fetch = LAZY, mappedBy = "course")
+    private List<Lesson> lessons;
+    public void addGroup(Group group){
+        if (groups == null) {
+            groups = new ArrayList<>();
+        }
+        groups.add(group);
+    }
+    public void addInstructor(Instructor instructor){
+        if (instructors==null){
+            instructors=new ArrayList<>();
+        }
+        instructors.add(instructor);
+    }
+    public void addLesson(Lesson lesson){
+        if (lessons==null){
+            lessons=new ArrayList<>();
+        }
+        lessons.add(lesson);
+    }
 }

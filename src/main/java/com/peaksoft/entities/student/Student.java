@@ -10,12 +10,15 @@ import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
-import java.util.Objects;
+
+import static javax.persistence.CascadeType.*;
 
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
+//@Table (name = "students")
+
 
 public class Student {
     @Id
@@ -34,9 +37,8 @@ public class Student {
     @NotEmpty(message = "Email should not be empty")
     @Email(message = "email should be valid")
     private String email;
-    @NotEmpty(message = "you should to choose the format")
     private StudyFormat studyFormat;
-    @OneToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = {MERGE,DETACH,PERSIST,REFRESH},fetch = FetchType.EAGER)
     private Group group;
 
     public Student(Long id, String firstName, String lastName, String phoneNumber, String email, StudyFormat studyFormat) {
@@ -47,13 +49,11 @@ public class Student {
         this.email = email;
         this.studyFormat = studyFormat;
     }
-
-    public void addStudentToGroup(Student student){
-        if(group.getStudentList().stream().noneMatch(x -> Objects.equals(x.id, student.id))){
-            group.getStudentList().add(student);
-            student.setGroup(group);
-        };
-    }
-
+//    public void addStudentToGroup(Student student){
+//        if(group.getStudents().stream().noneMatch(x -> Objects.equals(x.id, student.id))){
+//            group.getStudents().add(student);
+//            student.setGroup(group);
+//        };
+//    }
 
 }

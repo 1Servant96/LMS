@@ -1,5 +1,6 @@
 package com.peaksoft.entities.lesson;
 
+import com.peaksoft.entities.course.Course;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -15,8 +16,11 @@ public class LessonRepositoryImpl implements LessonRepository{
                 .setParameter("id",idOfCourse).getResultList();
     }
     public void saveLesson(Long id, Lesson lesson){
-
+        Course course = entityManager.find(Course.class,id);
+        course.addLesson(lesson);
+        lesson.setCourse(course);
         entityManager.merge(lesson);
+        entityManager.merge(course);
     }
     public Lesson getLessonById(Long id){
         return entityManager.find(Lesson.class, id);
@@ -28,8 +32,8 @@ public class LessonRepositoryImpl implements LessonRepository{
     public void updateLesson(Lesson updatedLesson, Long id){
         Lesson lessonToBeUpdated = entityManager.find(Lesson.class, id);
         lessonToBeUpdated.setLessonName(updatedLesson.getLessonName());
-        lessonToBeUpdated.setCourse(updatedLesson.getCourse());
-        lessonToBeUpdated.setTasks(updatedLesson.getTasks());
+//        lessonToBeUpdated.setCourse(updatedLesson.getCourse());
+//        lessonToBeUpdated.setTasks(updatedLesson.getTasks());
         entityManager.merge(lessonToBeUpdated);
     }
 }

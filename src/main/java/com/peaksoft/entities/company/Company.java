@@ -1,6 +1,7 @@
 package com.peaksoft.entities.company;
 
 import com.peaksoft.entities.course.Course;
+import com.peaksoft.entities.group.Group;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -29,15 +30,28 @@ public class Company {
     @Size(min = 2, message = "the company name couldn't be less than 2 letters")
     private String locatedCountry;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "company")
-    private List<Course> courses;
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "company")
+    private  List<Course> courses = new ArrayList<>();
+
+    private int numberOfStudents;
+    public void plusStudent(){
+        numberOfStudents++;
+    }
+    public void minusStudent(){
+        numberOfStudents--;
+    }
+
     public void addCourse(Course course) {
-        if (courses == null) {
-            courses = new ArrayList<>();
-        }
         courses.add(course);
     }
     public int countAmountOfStudentsInCompany(){
-        return (int) courses.stream().map(x -> x.getGroups().stream().map(y -> y.getStudentList().size())).count();
+        int sum = 0;
+        for (Course course:courses) {
+            for (Group group:course.getGroups()) {
+                sum = sum+group.getStudents().size();
+            }
+        }
+        return sum;
     }
 }

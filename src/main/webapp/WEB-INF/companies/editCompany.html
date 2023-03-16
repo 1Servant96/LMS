@@ -1,0 +1,65 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="en" xmlns:th="http://www.thymeleaf.org">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>Update company</title>-->
+<!--</head>-->
+<!--<body>-->
+<!--<div>-->
+<!--<form action="#" -->
+<!--      th:action="@{/editCompany}" -->
+<!--      th:object="${company}"-->
+<!--      method="post"-->
+<!--&gt;-->
+<!--    <input type="hidden" name="id" th:field="*{id}">-->
+<!--    <label for="name">Enter the name:</label>-->
+<!--    <input type="text" th:field="*{companyName}" id="name"/>-->
+<!--    <div style="color: red" th:if="${#fields.hasErrors('companyName')}" th:errors="*{companyName}">Name errors</div>-->
+
+<!--    <br>-->
+<!--    <label for="country">Enter the country:</label>-->
+<!--    <input type="text" th:field="*{locatedCountry}" id="country"/>-->
+<!--    <div style="color: red" th:if="${#fields.hasErrors('locatedCountry')}" th:errors="*{locatedCountry}">country errors</div>-->
+
+<!--&lt;!&ndash;    <br>&ndash;&gt;-->
+<!--&lt;!&ndash;    <label for="courses">Enter the courses:</label>&ndash;&gt;-->
+<!--&lt;!&ndash;    <input type="text" th:field="*{courses}" id="courses"/>&ndash;&gt;-->
+<!--&lt;!&ndash;    <div style="color: red" th:if="${#fields.hasErrors('courses')}" th:errors="*{courses}">courses errors</div>&ndash;&gt;-->
+
+<!--&lt;!&ndash;    <br>&ndash;&gt;-->
+<!--    <input type="submit" value="Update!"/>-->
+<!--</form>-->
+<!--</div>-->
+<!--</body>-->
+<!--</html>-->
+
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>add-company</title>
+</head>
+<body>
+<form
+        action="#"
+        th:action="@{/editCompany/{idCompany}(idCompany=${company.getId()})}"
+        th:object="${company}"
+        method="post">
+
+    <input type="hidden" name="id" th:field="*{id}">
+    <label>
+        <input type="text" name="companyName" th:field="*{companyName}" placeholder="Company Name">
+    </label>
+    <br><br>
+    <label>
+        <input type="text" name="locatedCountry" th:field="*{locatedCountry}" placeholder="Located Country">
+    </label>
+    <br><br>
+    <input type="submit" value="Add">
+
+</form>
+</body>
+</html>

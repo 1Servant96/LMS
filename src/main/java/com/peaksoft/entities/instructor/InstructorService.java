@@ -1,5 +1,6 @@
 package com.peaksoft.entities.instructor;
 
+import java.io.IOException;
 import java.util.List;
 
 public interface InstructorService {
@@ -12,6 +13,7 @@ public interface InstructorService {
     Instructor getInstructorById(Long id);
 
     void updateInstructor(Instructor instructor, Long id);
+    void assignInstructor(Long courseId, Long instructorId) throws IOException;
 
     void deleteInstructorById(Long id);
 }

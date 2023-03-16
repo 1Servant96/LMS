@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Instructors</title>
+    <style>table,
+    td {
+        border: 1px solid #333;
+        margin-top: 200px;
+        margin-left: auto;
+        margin-right: auto;
+        font-size: 25px;
+    }
+
+    thread,
+    tfoot {
+        background-color: #333;
+        color: #fff;
+    }
+    </style>
+    <style>
+        table, th, td {
+            border: 1px solid black;
+            padding: 3px;
+        }
+    </style>
+</head>
+<body>
+<table class="table table-bordered">
+    <thead class="table-dark">
+    <tr>
+        <th scope="colgroup">Id</th>
+        <th scope="col">Task name</th>
+        <th scope="col">Task text</th>
+        <th scope="col">deadline</th>
+        <th scope="col">Update</th>
+        <th scope="col">Delete</th>
+    </tr>
+    </thead>
+    <tbody class="table-success">
+    <tr th:each="task: ${tasks}">
+        <td th:text="${task.id}"></td>
+        <td th:text="${task.taskName}"></td>
+        <td th:text="${task.taskText}"></td>
+        <td th:text="${task.deadline}"></td>
+
+        <td><a th:href="@{/editTask/{id}(id=${task.id})}">
+            <button>Update</button>
+        </a>
+        </td>
+
+        <td><a th:href="@{/{lessonId}/{id}/deleteTask(lessonId=${lessonId}, id=${task.id})}">
+            <button>Delete</button>
+        </a>
+        </td>
+
+    </tr>
+    </tbody>
+</table>
+<br><br><br><br>
+<div style="text-align: center">
+    <a th:href="@{/tasks/{id}/newTask(id=${lessonId})}">
+        <button style="font-size: 25px;"> Add Task </button>
+    </a>
+</div>
+</body>
+</html>
+
+
+
+
+<!--<!doctype html>-->
+<!--<html lang="en" xmlns:th="http://www.thymeleaf.org">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <meta name="viewport"-->
+<!--          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">-->
+<!--    <meta http-equiv="X-UA-Compatible" content="ie=edge">-->
+<!--    <title>Instructors</title>-->
+<!--    <style>-->
+<!--        body {-->
+<!--            padding-top: 200px;-->
+<!--            display: flex;-->
+<!--            flex-direction: column;-->
+<!--            justify-content: space-between;-->
+<!--            align-items: center;-->
+<!--            color: white;-->
+<!--            font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS",-->
+<!--            sans-serif;-->
+<!--            font-size: 15px;-->
+<!--        }-->
+<!--        table {-->
+<!--            border: none;-->
+<!--            background: #2c3844;-->
+<!--            padding: 3px;-->
+<!--            width: 70%;-->
+<!--        }-->
+<!--        td {-->
+<!--            border:none;-->
+<!--            background: #333;-->
+<!--            text-align: center;-->
+<!--            padding: 10px;-->
+<!--        }-->
+
+
+<!--        a {-->
+<!--            font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS",-->
+<!--            sans-serif;-->
+<!--            font-size: 12px;-->
+<!--            background: #4a918f;-->
+<!--            border-radius: 5px;-->
+<!--            border: none;-->
+<!--            color: white;-->
+<!--            cursor: pointer;-->
+<!--            width: 80%;-->
+<!--            padding: 2px;-->
+
+
+<!--        }-->
+<!--        .submit {-->
+<!--            border: none;-->
+<!--            color: #2c3844;-->
+<!--            background: #4a918f;-->
+<!--            margin-top: 50px;-->
+<!--            padding: 10px 50px;-->
+<!--            border-radius: 5px;-->
+<!--            font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS",-->
+<!--            sans-serif;-->
+<!--            font-size: 15px;-->
+<!--        }-->
+<!--    </style>-->
+<!--</head>-->
+<!--<body>-->
+<!--<table class="table table-bordered">-->
+<!--    <thead class="table-dark">-->
+<!--    <tr>-->
+<!--        <th scope="colgroup">Id</th>-->
+<!--        <th scope="col">Task name</th>-->
+<!--        <th scope="col">Task text</th>-->
+<!--        <th scope="col">deadline</th>-->
+<!--        <th scope="col">Update</th>-->
+<!--        <th scope="col">Delete</th>-->
+<!--    </tr>-->
+<!--    </thead>-->
+<!--    <tbody class="table-success">-->
+<!--    <tr th:each="task: ${tasks}">-->
+<!--        <td th:text="${task.id}"></td>-->
+<!--        <td th:text="${task.taskName}"></td>-->
+<!--        <td th:text="${task.taskText}"></td>-->
+<!--        <td th:text="${task.deadline}"></td>-->
+
+<!--        <td><a th:href="@{/editTask/{id}(id=${task.id})}">-->
+<!--            Update-->
+<!--        </a>-->
+<!--        </td>-->
+
+<!--        <td><a th:href="@{/{lessonId}/{id}/deleteTask(lessonId=${lessonId}, id=${task.id})}">-->
+<!--            Delete-->
+<!--        </a>-->
+<!--        </td>-->
+
+<!--    </tr>-->
+<!--    </tbody>-->
+<!--</table>-->
+<!--<br><br><br><br>-->
+<!--<div style="text-align: center">-->
+<!--    <a th:href="@{/tasks/{id}/newTask(id=${lessonId})}">-->
+<!--        <button-->
+<!--                class="submit"-->
+<!--                type="submit"-->
+<!--                onclick="window.location.href = 'newStudent'"> Add Task </button>-->
+
+<!--    </a>-->
+<!--</div>-->
+<!--</body>-->
+<!--</html>-->

@@ -5,7 +5,6 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.transaction.Transactional;
 import java.util.List;
 
 @Repository
@@ -35,7 +34,6 @@ public class CourseRepositoryImpl implements CourseRepository {
         Course courseToBeUpdated = getCourseById(id);
         courseToBeUpdated.setCourseName(updatedCourse.getCourseName());
         courseToBeUpdated.setDuration(updatedCourse.getDuration());
-        courseToBeUpdated.setCompany( updatedCourse.getCompany());
         courseToBeUpdated.setGroups(updatedCourse.getGroups());
         courseToBeUpdated.setInstructors(updatedCourse.getInstructors());
         courseToBeUpdated.setLessons(updatedCourse.getLessons());
