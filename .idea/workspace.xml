@@ -62,7 +62,7 @@
       <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/group/editGroup.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/groups/editGroup.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/group/groups.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/groups/groups.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/group/newGroup.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/groups/newGroup.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/group/show.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/file.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/group/show.html" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/instructor/editInstructor.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/instructors/editInstructor.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/instructor/instructors.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/instructors/instructors.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/instructor/newInstructor.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/instructors/newInstructor.html" afterDir="false" />
@@ -335,6 +335,7 @@
       <workItem from="1675085290986" duration="785000" />
       <workItem from="1675155527151" duration="9000" />
       <workItem from="1676539887448" duration="21000" />
+      <workItem from="1678941566740" duration="377000" />
     </task>
     <task id="LOCAL-00001" summary="fixed error 500">
       <created>1671950522869</created>
@@ -343,7 +344,14 @@
       <option name="project" value="LOCAL" />
       <updated>1671950522870</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="pretty fine">
+      <created>1678941910269</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1678941910269</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -362,6 +370,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="fixed error 500" />
-    <option name="LAST_COMMIT_MESSAGE" value="fixed error 500" />
+    <MESSAGE value="pretty fine" />
+    <option name="LAST_COMMIT_MESSAGE" value="pretty fine" />
   </component>
 </project>
